@@ -7,9 +7,9 @@
 
 //variable block to hold player position
 var rectx = 25;
-var recty = 175;
-var Lline = 200;
-var Rline = 200;
+var recty = 0;
+var Lline = 25;
+var Rline = 25;
 //variable to hold score
 var score = 0;
 //variable block to hold note position
@@ -22,9 +22,10 @@ var noteyblue = 200;
 var notexpurple = 900;
 var noteypurple = 300;
 
+var squarecolor = ''
 //start of program
 function setup() {
-  createCanvas(600,350);
+  createCanvas(600, 350);
 
 }
 
@@ -44,19 +45,47 @@ function draw() {
   }
 
   if (keyIsDown(UP_ARROW)) {
-    if (recty >= 0) {
-      Rline -= 4;
-      Lline -= 4;
-      recty -= 4;
-    }
-  }
 
-  if (keyIsDown(DOWN_ARROW)) {
-    if (recty <= 300) {
-      Rline += 4;
-      Lline += 4;
-      recty += 4;
+    if (recty === 100) {
+      Rline = 25;
+      Lline = 25;
+      recty = 0;
     }
+
+    if (recty === 200) {
+      Rline = 125;
+      Lline = 125;
+      recty = 100;
+    }
+
+    if (recty === 300) {
+      Rline = 225;
+      Lline = 225;
+      recty = 200;
+    }
+
+
+
+  }
+  if (keyIsDown(DOWN_ARROW)) {
+    if (recty === 0)
+    {
+      Rline = 125;
+      Lline = 125;
+      recty = 100;
+    }
+      if (recty === 100)
+      {
+        Rline = 225;
+        Lline = 225;
+        recty = 200;
+      }
+      if (recty === 200)
+      {
+        Rline = 325;
+        Lline = 325;
+        recty = 300;
+      }
   }
   //this if block detects if one of the mouse buttons is presed to update player color
   //It also updates line position and where the new rect spawns
@@ -65,6 +94,7 @@ function draw() {
     line(0, Lline, 600, Rline);
     fill(0, 255, 0);
     rect(rectx, recty, 25, 50);
+    squarecolor = 'green';
   }
   if (mouseIsPressed) {
     if (mouseButton === LEFT && mouseButton != RIGHT) {
@@ -72,13 +102,14 @@ function draw() {
       line(0, Lline, 600, Rline);
       fill(0, 0, 255);
       rect(rectx, recty, 25, 50);
+      squarecolor = 'blue';
     }
     if (mouseButton === RIGHT) {
 
       line(0, Lline, 600, Rline);
       fill(255, 0, 0);
       rect(rectx, recty, 25, 50);
-
+      squarecolor = 'red';
 
     }
     if (mouseButton === CENTER) {
@@ -86,6 +117,7 @@ function draw() {
       line(0, Lline, 600, Rline);
       fill(255, 0, 255);
       rect(rectx, recty, 25, 50);
+      squarecolor = 'purple';
     }
 
 
@@ -123,28 +155,24 @@ function draw() {
     notexpurple = 900;
   }
 
-  if (rectx===notexred)
-  {
-    score=score+1;
-    print('score',score);
-  }
-
-  	if (rectx===notexgreen)
-  {
-    score=score+1;
+  if (rectx === notexred && squarecolor === 'red') {
+    score = score + 1;
     print('score', score);
   }
 
-  	if (rectx===notexblue)
-  {
-    score=score+1;
+  if (rectx === notexgreen && squarecolor === 'green') {
+    score = score + 1;
     print('score', score);
   }
 
-  	if (rectx===notexpurple)
-  {
-    score=score+1;
+  if (rectx === notexblue && squarecolor === 'blue') {
+    score = score + 1;
     print('score', score);
   }
-  // old console check for mouse pressesconsole.log(mouseButton);
+
+  if (rectx === notexpurple && squarecolor === 'purple') {
+    score = score + 1;
+    print('score', score);
+  }
+
 }
